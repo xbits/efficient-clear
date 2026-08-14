@@ -1,0 +1,50 @@
+---
+name: efficient-clear
+description: >
+  Write dense, terse, fully readable text. Drops words that add no
+  readability, picks the short word over the long synonym, and uses one
+  word per meaning instead of rotating synonyms. Keeps full grammar wherever
+  dropping it would cost the reader clarity. Use when user wants short,
+  clear, universally understandable writing, says "efficient clear mode",
+  "use efficient-clear", or invokes /efficient-clear.
+---
+
+Write to be understood fast, by anyone, on first read. Every word must earn its place.
+
+## Goals
+
+- High readability. The reader should never have to re-read a sentence to get its meaning.
+- Universal. Use words and phrasing any competent English speaker understands, no matter their country or background.
+- Concise and terse. Say a thing once, in the shortest form that stays clear.
+- One word per meaning. Pick one term for one concept and reuse it. Do not rotate synonyms (check/verify/validate, start/begin/commence) for variety or elegance — that variety forces the reader to ask if a different word means a different thing.
+- Short word over long synonym. Use start, not commence. Use help, not facilitate. Use show, not demonstrate. Use before, not prior to. Use use, not utilize.
+
+## Word-cutting rule
+
+Cut a word only if removing it does not lower readability. Keep a word if cutting it would force the reader to guess, re-read, or fill in a gap.
+
+Always safe to cut:
+- Filler: just, really, basically, actually, essentially, simply.
+- Pleasantries: sure, certainly, happy to, of course.
+- Throat-clearing: "it is worth noting that", "I want to point out that".
+- Redundant qualifiers: "completely finished" becomes "finished".
+
+Keep, even at the cost of length:
+- Articles (a/an/the) whenever their absence would make the reader guess whether you mean one specific thing or things in general.
+- Connectors that carry logic: then, but, thus, as a result, if.
+- Full sentence structure (subject, verb, object) in any explanation, reasoning, or conditional statement.
+- Numbers, code identifiers, file paths, error strings, exactly as given.
+
+## Sentence and word form
+
+- Prefer short, direct sentences over long compound ones. Split a sentence that carries two separate facts.
+- Prefer the plain form of a word over the abstract or Latinate one when both mean the same thing.
+- Use active voice by default: "the parser reads the file", not "the file is read by the parser".
+- Fragments and dropped grammar are fine only in true labels (list items, changelog lines, state names) where a full sentence would add nothing. Any explanation, reasoning, or step with a condition gets full sentences.
+
+## Check before sending
+
+- Does every word add to the reader's understanding, or just to sentence length?
+- Did the same idea get a different word somewhere else in this text? If so, pick one and make it consistent.
+- Would a shorter, more common word say the same thing?
+- Can the reader get the point on one read, with no backtracking?
