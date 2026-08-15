@@ -1,7 +1,8 @@
 # efficient-clear
 
-Three writing-style skills for Claude Code, plus a comparison test against two
-external skills (caveman compression and Simplified Technical English).
+Three writing-style skills for Claude Code, plus a comparison test against
+three external skills: caveman compression, and two Simplified Technical
+English variants.
 
 ## Skills in this repo
 
@@ -16,31 +17,46 @@ external skills (caveman compression and Simplified Technical English).
   tuned for a specific reader profile: fluent non-native English speaker,
   software engineer, no formal academic background, no region-specific
   idioms.
+- [`skills/unslop-text-ste.md`](skills/unslop-text-ste.md/SKILL.md) —
+  Simplified Technical English variant, bundled with the `anthropic-skills`
+  plugin.
+- [`skills/ste-writing`](skills/ste-writing/SKILL.md) — Simplified Technical
+  English variant against the full ASD-STE100 spec (Issue 9), with write /
+  rewrite / review modes and an optional lint script. Source:
+  [woosal1337/blog](https://github.com/woosal1337/blog/blob/main/videos/ep01-the-cure-for-ai-slop/ste-writing-skill.md).
 
-## Test: A* pathfinding, five ways
+## Test: A* pathfinding, six ways
 
-Each skill (plus two external ones, for comparison) was given the same bare
-prompt — "describe the A* pathfinding algorithm" — with no other framing, by
-a separate agent that loaded only that one skill. Outputs are in
+Each skill (plus one external one, caveman, for comparison) was given the
+same bare prompt — "describe the A* pathfinding algorithm" — with no other
+framing, by a separate agent that loaded only that one skill. Outputs are in
 [`tests/a-star/`](tests/a-star/).
 
 | Skill | Words | Notes |
 |---|---:|---|
-| `caveman.txt` | 252 | Symbol-heavy, sentence fragments, math notation as shorthand. Fastest read for someone who already knows the domain, hardest for a newcomer. |
-| `unslop-text.txt` | 494 | Full sentences throughout, no markdown headers or bold. Defines admissible/consistent explicitly. Closest to a textbook paragraph. |
-| `efficient-clear.txt` | 521 | Markdown headers and bold labels, denser than unslop-text per sentence. Only one to mention IDA*/SMA* memory-bounded variants. |
-| `plain-speak.txt` | 634 | Longest. Most explanatory tone, restates ideas from a second angle ("moves close to a straight line toward the goal"). |
-| `plain-speak-joao.txt` | 447 | Markdown headers, bold labels, no restating. Shortest of the header-formatted outputs. |
+| `caveman.md` | 252 | Symbol-heavy, sentence fragments, math notation as shorthand. Fastest read for someone who already knows the domain, hardest for a newcomer. |
+| `ste-writing.md` | 480 | Full sentences, no markdown headers or bold, no contractions. Closest fit to the ASD-STE100 spec: short paragraphs, one topic each, plain connectors. |
+| `unslop-text.md` | 494 | Full sentences throughout, no markdown headers or bold. Defines admissible/consistent explicitly. Closest to a textbook paragraph. |
+| `efficient-clear.md` | 521 | Markdown headers and bold labels, denser than unslop-text per sentence. Only one to mention IDA*/SMA* memory-bounded variants. |
+| `plain-speak-joao.md` | 447 | Markdown headers, bold labels, no restating. Shortest of the header-formatted outputs. |
+| `plain-speak.md` | 634 | Longest. Most explanatory tone, restates ideas from a second angle ("moves close to a straight line toward the goal"). |
 
 Raw word counts:
 
 ```
-252 caveman.txt
-447 plain-speak-joao.txt
-494 unslop-text.txt
-521 efficient-clear.txt
-634 plain-speak.txt
+252 caveman.md
+447 plain-speak-joao.md
+480 ste-writing.md
+494 unslop-text.md
+521 efficient-clear.md
+634 plain-speak.md
 ```
+
+`unslop-text.md` and `ste-writing.md` come from two different Simplified
+Technical English skills (different sources, same underlying ASD-STE100
+rule set), and land within 14 words of each other. `efficient-clear.md`
+targets the same readability goal without the STE word-list restriction,
+and comes out close in length but with more structure (headers, bold).
 
 ## Method
 
@@ -48,6 +64,6 @@ Raw word counts:
 - Each agent was told which skill to load and given the task — nothing about
   the fact that outputs would be compared, and no style instructions beyond
   "load this skill."
-- caveman and Simplified Technical English (STE) are external skills, not
-  reproduced in this repo. Their SKILL.md sources are not ours to
-  redistribute; only their test output is included, for comparison.
+- caveman is an external skill, not reproduced in this repo. Its SKILL.md
+  source is not ours to redistribute; only its test output is included, for
+  comparison.
