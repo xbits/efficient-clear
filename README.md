@@ -40,6 +40,7 @@ framing, by a separate agent that loaded only that one skill. Outputs are in
 | `efficient-clear.md` | 521 | Markdown headers and bold labels, denser than unslop-text per sentence. Only one to mention IDA*/SMA* memory-bounded variants. |
 | `plain-speak-joao.md` | 447 | Markdown headers, bold labels, no restating. Shortest of the header-formatted outputs. |
 | `plain-speak.md` | 634 | Longest. Most explanatory tone, restates ideas from a second angle ("moves close to a straight line toward the goal"). |
+| `efficient-clear-hookline.md` | 508 | Same task, but with only the ~55-word hook reminder as the style instruction — no Skill tool call, no access to the full `efficient-clear` SKILL.md. See note below. |
 
 Raw word counts:
 
@@ -48,9 +49,21 @@ Raw word counts:
 447 plain-speak-joao.md
 480 ste-writing.md
 494 unslop-text.md
+508 efficient-clear-hookline.md
 521 efficient-clear.md
 634 plain-speak.md
 ```
+
+### Full skill vs. hook-line-only
+
+`efficient-clear` runs in this project as a standing hook: every turn, a
+short instruction (not the full `SKILL.md`) gets injected into context —
+see [`hooks-setup.md`](hooks-setup.md). `efficient-clear-hookline.md` tests
+that short line alone, with the Skill tool never invoked. Result: 508 words
+against 521 for the full skill, and the same structure (headers, bold
+labels, key-properties list). The short line carries most of the effect on
+its own; the full skill adds the word-cutting checklist and the explicit
+keep-list (articles, connectors) but the output difference here is small.
 
 `unslop-text.md` and `ste-writing.md` come from two different Simplified
 Technical English skills (different sources, same underlying ASD-STE100
