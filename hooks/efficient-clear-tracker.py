@@ -56,10 +56,10 @@ def main():
                 "hookEventName": "UserPromptSubmit",
                 "additionalContext": (
                     "EFFICIENT-CLEAR MODE ACTIVE. Cut filler, pleasantries, hedging, "
-                    "throat-clearing. Keep full grammar, articles, and connectors — "
-                    "never trade clarity for brevity. One word per meaning, short word "
-                    "over long synonym, active voice. Applies to all prose — chat, docs, "
-                    "commits, PRs, comments — not to code, identifiers, or creative writing."
+                    "throat-clearing. Be succint but keep full grammar, articles, etc, if it helps clarity"
+                    "Use general English, avoid analogies, jargon or niche expressions."
+                    "One word per meaning, short word over long synonym, active voice. "
+                    "Applies to all prose — chat, docs, commits, PRs, comments — not to code, identifiers, or creative writing."
                 )
             }
         }))
