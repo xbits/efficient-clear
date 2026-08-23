@@ -8,14 +8,16 @@ pattern the `caveman` plugin uses for its own always-on mode.
 
 ## What the hook actually injects
 
-Not the full `SKILL.md`. A single hand-written line, about 55 words:
+Not the full `SKILL.md`. A single hand-written line, about 65 words:
 
 ```
 EFFICIENT-CLEAR MODE ACTIVE. Cut filler, pleasantries, hedging, throat-clearing.
-Keep full grammar, articles, and connectors — never trade clarity for brevity.
-One word per meaning, short word over long synonym, active voice. Applies to
-all prose — chat, docs, commits, PRs, comments — not to code, identifiers,
-or creative writing.
+Avoid analogies. Use general English, avoid niche expressions. Don't trade
+clarity for brevity. One word per meaning. Short word over long synonym.
+Active voice. Internal reasoning is not visible to the reader — don't assume
+a term or conclusion from it is already known; restate what the reader needs.
+Applies to all prose, chat, docs, commits, PRs, comments. Not to code,
+identifiers, or creative writing.
 ```
 
 This line lives in [`hooks/efficient-clear-tracker.py`](hooks/efficient-clear-tracker.py),
@@ -74,6 +76,13 @@ The hook line and the `SKILL.md` file are maintained separately, by hand.
 [`tests/a-star/efficient-clear-hookline.md`](tests/a-star/efficient-clear-hookline.md)
 tests the hook line alone, with the Skill tool never invoked, against
 [`tests/a-star/efficient-clear.md`](tests/a-star/efficient-clear.md), which
-used the full skill file. Word counts came out close (508 vs. 521) on this
+used the full skill file. Word counts came out close (508 vs. 521) on that
 one test, but that is not a guarantee the two always agree — a future edit
-to one and not the other would go unnoticed without a test like this.
+to one and not the other goes unnoticed without a test like this.
+
+This already happened once: a no-analogies rule was added to the hook line
+directly, without a matching edit to `SKILL.md` — caught only when asked
+which file governs actual behavior. Both files now carry the no-analogies
+rule and a rule against assuming the reader can see internal reasoning, but
+nothing enforces that they stay matched. Whoever edits one should edit the
+other in the same change.

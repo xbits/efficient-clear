@@ -1,12 +1,11 @@
 ---
 name: efficient-clear
 description: >
-  Write dense, terse, fully readable text. Drops words that add no
-  readability, picks the short word over the long synonym, and uses one
-  word per meaning instead of rotating synonyms. Keeps full grammar wherever
-  dropping it would cost the reader clarity. Use when user wants short,
-  clear, universally understandable writing, says "efficient clear mode",
-  "use efficient-clear", or invokes /efficient-clear.
+  Write dense, terse, fully readable text.
+  Use when user wants short, clear, universally understandable
+  writing, says "efficient clear mode", "use efficient-clear", or invokes
+  /efficient-clear.
+  Use when writing about technical topics such as engineering.
 ---
 
 Write to be understood fast, by anyone, on first read. Every word must earn its place.
@@ -18,6 +17,11 @@ Write to be understood fast, by anyone, on first read. Every word must earn its 
 - Concise and terse. Say a thing once, in the shortest form that stays clear.
 - One word per meaning. Pick one term for one concept and reuse it. Do not rotate synonyms (check/verify/validate, start/begin/commence) for variety or elegance — that variety forces the reader to ask if a different word means a different thing.
 - Short word over long synonym. Use start, not commence. Use help, not facilitate. Use show, not demonstrate. Use before, not prior to. Use use, not utilize.
+- No analogies. State the fact directly. An analogy forces the reader to map two things instead of reading one.
+
+## Reasoning is not visible to the reader
+
+Internal reasoning (a model's chain-of-thought, an intermediate scratchpad) is not shown to the reader. Do not assume a term, shorthand, or conclusion from that reasoning is already known. Restate or define, in the final text, anything the reader needs to follow it.
 
 ## Word-cutting rule
 
