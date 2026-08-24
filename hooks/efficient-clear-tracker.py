@@ -9,6 +9,7 @@ import sys
 
 CLAUDE_DIR = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.expanduser("~/.claude")
 FLAG_PATH = os.path.join(CLAUDE_DIR, ".efficient-clear-active")
+PROMPT_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "efficient-clear-prompt.md")
 MAX_FLAG_BYTES = 32
 
 ON_RE = re.compile(r"\b(activate|enable|turn on|start)\b.*\befficient[- ]?clear\b|\befficient[- ]?clear\b.*\b(mode|activate|enable|turn on|start)\b", re.I)
@@ -51,21 +52,15 @@ def main():
             pass
 
     if read_flag(FLAG_PATH):
+        try:
+            with open(PROMPT_PATH) as f:
+                prompt_text = f.read().strip()
+        except OSError:
+            return
         print(json.dumps({
             "hookSpecificOutput": {
                 "hookEventName": "UserPromptSubmit",
-                "additionalContext": (
-                    "EFFICIENT-CLEAR MODE ACTIVE. "
-                    "Cut filler, pleasantries, hedging, throat-clearing."
-                    "Use general English, avoid analogies, jargon or niche expressions. "
-                    "Be succint but don't trade clarity for brevity. "
-                    "One word per meaning. Short word over long synonym."
-                    "Active voice. "
-                    "Internal reasoning is not visible to the reader — don't assume a "
-                    "term or conclusion from it is already known; restate what the reader needs."
-                    "Applies to all prose, chat, docs, "
-                    "commits, PRs, comments. Not to code, identifiers, or creative writing."
-                )
+                "additionalContext": prompt_text
             }
         }))
 
