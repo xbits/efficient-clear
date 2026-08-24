@@ -24,8 +24,12 @@
   (puffery, hedging, em-dash overuse, inline-header lists, and more) plus a
   self-audit step, rather than a positive style guide. Source:
   [cursor/plugins](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md).
+- [`tests/alternative-skills/eff-clear-plus-unslop`](../../alternative-skills/eff-clear-plus-unslop/SKILL.md) —
+  new skill written after testing `unslop-cursor`, folding some of its rules
+  (abstract-metaphor-noun list, em-dash ban) into the `efficient-clear`
+  structure (goals, directives, word-cutting rule, pre-send checklist).
 
-## Test: A* pathfinding, seven ways
+## Test: A* pathfinding, eight ways
 
 Each skill (plus one external one, caveman, for comparison) was given the
 same bare prompt — "describe the A* pathfinding algorithm" — with no other
@@ -34,7 +38,8 @@ framing, by a separate agent that loaded only that one skill. Outputs are in
 
 | Skill | Words | Notes |
 |---|---:|---|
-| `unslop-cursor.md` | 314 | Full prose, no headers or bold. Shortest full-sentence output by a wide margin. No formula-as-notation restraint — still writes out f(n) = g(n) + h(n), but skips restating properties in list form. |
+| `eff-clear-plus-unslop.md` | 301 | Full prose plus a numbered step list and a three-item definition list for g/h/f — the only entry to lay out the algorithm as literal steps rather than describing it in paragraphs. Shortest full-sentence output. |
+| `unslop-cursor.md` | 314 | Full prose, no headers or bold. No formula-as-notation restraint — still writes out f(n) = g(n) + h(n), but skips restating properties in list form. |
 | `caveman.md` | 252 | Symbol-heavy, sentence fragments, math notation as shorthand. Fastest read for someone who already knows the domain, hardest for a newcomer. |
 | `ste-writing.md` | 480 | Full sentences, no markdown headers or bold, no contractions. Closest fit to the ASD-STE100 spec: short paragraphs, one topic each, plain connectors. |
 | `unslop-text.md` | 494 | Full sentences throughout, no markdown headers or bold. Defines admissible/consistent explicitly. Closest to a textbook paragraph. |
@@ -47,6 +52,7 @@ Raw word counts:
 
 ```
 252 caveman.md
+301 eff-clear-plus-unslop.md
 314 unslop-cursor.md
 447 plain-speak-joao.md
 480 ste-writing.md
@@ -72,6 +78,16 @@ Technical English skills (different sources, same underlying ASD-STE100
 rule set), and land within 14 words of each other. `efficient-clear.md`
 targets the same readability goal without the STE word-list restriction,
 and comes out close in length but with more structure (headers, bold).
+
+### eff-clear-plus-unslop
+
+Shortest full-prose result, and the only one that renders the algorithm as
+a numbered step list instead of describing it in paragraphs — the format
+itself removes words a paragraph would need for transitions ("next",
+"then the algorithm checks whether"). It also skips the properties section
+(admissible, consistent, optimal) that `efficient-clear.md` and
+`unslop-text.md` both include, folding the one property that matters
+(heuristic must not overestimate) into a single sentence instead.
 
 ### unslop-cursor is an edit skill, not a write skill
 
