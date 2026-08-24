@@ -19,8 +19,13 @@
   English variant against the full ASD-STE100 spec (Issue 9), with write /
   rewrite / review modes and an optional lint script. Source:
   [woosal1337/blog](https://github.com/woosal1337/blog/blob/main/videos/ep01-the-cure-for-ai-slop/ste-writing-skill.md).
+- [`tests/alternative-skills/unslop-cursor`](../../alternative-skills/unslop-cursor/SKILL.md) —
+  "cut AI tells from any writing" skill: a pattern list of AI writing tics
+  (puffery, hedging, em-dash overuse, inline-header lists, and more) plus a
+  self-audit step, rather than a positive style guide. Source:
+  [cursor/plugins](https://github.com/cursor/plugins/blob/main/pstack/skills/unslop/SKILL.md).
 
-## Test: A* pathfinding, six ways
+## Test: A* pathfinding, seven ways
 
 Each skill (plus one external one, caveman, for comparison) was given the
 same bare prompt — "describe the A* pathfinding algorithm" — with no other
@@ -29,6 +34,7 @@ framing, by a separate agent that loaded only that one skill. Outputs are in
 
 | Skill | Words | Notes |
 |---|---:|---|
+| `unslop-cursor.md` | 314 | Full prose, no headers or bold. Shortest full-sentence output by a wide margin. No formula-as-notation restraint — still writes out f(n) = g(n) + h(n), but skips restating properties in list form. |
 | `caveman.md` | 252 | Symbol-heavy, sentence fragments, math notation as shorthand. Fastest read for someone who already knows the domain, hardest for a newcomer. |
 | `ste-writing.md` | 480 | Full sentences, no markdown headers or bold, no contractions. Closest fit to the ASD-STE100 spec: short paragraphs, one topic each, plain connectors. |
 | `unslop-text.md` | 494 | Full sentences throughout, no markdown headers or bold. Defines admissible/consistent explicitly. Closest to a textbook paragraph. |
@@ -41,6 +47,7 @@ Raw word counts:
 
 ```
 252 caveman.md
+314 unslop-cursor.md
 447 plain-speak-joao.md
 480 ste-writing.md
 494 unslop-text.md
@@ -66,6 +73,18 @@ rule set), and land within 14 words of each other. `efficient-clear.md`
 targets the same readability goal without the STE word-list restriction,
 and comes out close in length but with more structure (headers, bold).
 
+### unslop-cursor is an edit skill, not a write skill
+
+Its description is "Cut AI tells from any writing" and its process is
+scan-then-rewrite against a pattern list (puffery, hedging, em dashes,
+inline-header lists, and more), plus a "what makes this obviously AI
+generated?" self-audit — not a positive style guide like the others tested
+here. Given the same bare prompt with no draft to edit, the agent wrote a
+draft and then applied the skill's checklist to it. The result is the
+shortest full-prose output in this test, with no headers or bold, which
+matches the skill's explicit rule against inline-header lists ("bold label
+and colon that restates the line").
+
 ## Method
 
 - One fresh agent per skill, no shared context between them.
@@ -75,3 +94,11 @@ and comes out close in length but with more structure (headers, bold).
 - caveman is an external skill, not reproduced in this repo. Its SKILL.md
   source is not ours to redistribute; only its test output is included, for
   comparison.
+- The `efficient-clear` standing hook (see [`hooks-setup.md`](../../../hooks-setup.md))
+  injects a style reminder on every `UserPromptSubmit` in this user's Claude
+  Code setup. That hook fires only on the main session's prompt submission,
+  not on Task-tool subagent calls, so it should not reach an agent spawned
+  through the Agent tool. As a precaution for the `unslop-cursor` run, the
+  hook's activation flag (`~/.claude/.efficient-clear-active`) was removed
+  before spawning the agent and restored after, so the test ran with the
+  injection mechanism fully off rather than relying on that assumption.

@@ -8,21 +8,14 @@ pattern the `caveman` plugin uses for its own always-on mode.
 
 ## What the hook actually injects
 
-Not the full `SKILL.md`. A single hand-written line, about 65 words:
+Not the full `SKILL.md`. A single hand-written line, about 65 words, kept in
+[`hooks/efficient-clear-prompt.md`](hooks/efficient-clear-prompt.md).
 
-```
-EFFICIENT-CLEAR MODE ACTIVE. Cut filler, pleasantries, hedging, throat-clearing.
-Avoid analogies. Use general English, avoid niche expressions. Don't trade
-clarity for brevity. One word per meaning. Short word over long synonym.
-Active voice. Internal reasoning is not visible to the reader — don't assume
-a term or conclusion from it is already known; restate what the reader needs.
-Applies to all prose, chat, docs, commits, PRs, comments. Not to code,
-identifiers, or creative writing.
-```
-
-This line lives in [`hooks/efficient-clear-tracker.py`](hooks/efficient-clear-tracker.py),
-not in the skill file. Editing the skill file does not change what the hook
-sends — the two are separate copies that can drift out of sync.
+[`hooks/efficient-clear-tracker.py`](hooks/efficient-clear-tracker.py) reads
+that file at runtime and injects its contents verbatim — it does not embed
+the text itself. Editing the skill file does not change what the hook sends;
+the prompt file and `SKILL.md` are still separate copies that can drift out
+of sync (see "Known gap" below).
 
 ## The two scripts
 
@@ -36,8 +29,9 @@ sends — the two are separate copies that can drift out of sync.
     "turn on efficient-clear", …), writes the flag on.
   - if a message contains a deactivation phrase ("stop efficient-clear",
     "turn off efficient-clear", …), deletes the flag file.
-  - if the flag file is present, prints the reminder line above as
-    `additionalContext` for that turn.
+  - if the flag file is present, reads
+    [`hooks/efficient-clear-prompt.md`](hooks/efficient-clear-prompt.md) and
+    prints its contents as `additionalContext` for that turn.
 
 ## Wiring (in `~/.claude/settings.json`)
 
